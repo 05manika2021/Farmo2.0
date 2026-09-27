@@ -96,6 +96,7 @@ async def get_price_trend(
         )
 
     trend_data = price_service.get_price_trend(crop, market_id, days, db)
+    current_row = price_service.get_current_price(crop, market_id, db)
 
     return PriceTrendResponse(
         crop=crop,
@@ -107,7 +108,7 @@ async def get_price_trend(
             PriceHistoryEntry(date=h["date"], price=h["price"])
             for h in trend_data["history"]
         ],
-        data_status="DEMO",
+        data_status=(current_row.data_status if current_row else "DEMO"),
     )
 
 

@@ -6,11 +6,18 @@ import { useApp } from '@/contexts/AppContext'
 import { voicePipeline } from '@/lib/api'
 import { useT } from '@/hooks/useT'
 
+// The spinner must never run forever: if the pipeline does not answer in
+// time, show the error state and send the farmer back to the mic.
+const PIPELINE_TIMEOUT_MS = 45000
+
 export default function VoiceProcessingPage() {
   const router = useRouter()
   const { state } = useApp()
   const t = useT()
   const [error, setError] = useState(false)
+  // Set when the API reports success:false (AI could not generate an answer,
+  // e.g. quota exhausted). Stops the spinner and shows a localized message.
+  const [aiUnavailable, setAiUnavailable] = useState(false)
 
   useEffect(() => {
     const audioBase64 = sessionStorage.getItem('farmo_voice_audio')
@@ -41,14 +48,29 @@ export default function VoiceProcessingPage() {
         if (state.latitude) formData.append('latitude', String(state.latitude))
         if (state.longitude) formData.append('longitude', String(state.longitude))
         if (state.crops[0]) formData.append('crop', state.crops[0])
+        if (state.quantity) formData.append('quantity', String(state.quantity))
 
-        const result = await voicePipeline(formData)
+        const timeout = new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error('voice-pipeline-timeout')), PIPELINE_TIMEOUT_MS)
+        )
+
+        const result = (await Promise.race([
+          voicePipeline(formData),
+          timeout,
+        ])) as { success?: boolean; error_code?: string } | null
 
         if (cancelled) return
 
         if (!result) {
           setError(true)
           setTimeout(() => router.replace('/voice/listening'), 1500)
+          return
+        }
+
+        // Explicit AI failure (AI_QUOTA_EXHAUSTED / AI_TIMEOUT / AI_UNAVAILABLE).
+        // Stay here, stop loading, and show the message in the selected language.
+        if (result.success === false) {
+          setAiUnavailable(true)
           return
         }
 
@@ -66,6 +88,38 @@ export default function VoiceProcessingPage() {
 
     return () => { cancelled = true }
   }, [router, state, t])
+
+  if (aiUnavailable) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-full bg-primary screen-enter px-6">
+        <div className="w-20 h-20 rounded-full bg-amber-400/20 flex items-center justify-center mb-6">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+            <path d="M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#CFD050" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+        <h2 className="text-xl font-bold text-white mb-2 text-center">
+          {t('voice.aiUnavailableTitle')}
+        </h2>
+        <p className="text-white/70 text-sm text-center mb-8">
+          {t('voice.aiUnavailable')}
+        </p>
+        <div className="w-full space-y-3">
+          <button
+            onClick={() => router.replace('/voice/listening')}
+            className="w-full h-12 bg-secondary rounded-2xl text-sm font-bold text-primary active:scale-95 transition-transform"
+          >
+            {t('voice.tryAgain')}
+          </button>
+          <button
+            onClick={() => router.replace('/home')}
+            className="w-full h-12 bg-white/10 rounded-2xl text-sm font-semibold text-white active:scale-95 transition-transform"
+          >
+            {t('voice.goBack')}
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-full bg-primary screen-enter px-6">

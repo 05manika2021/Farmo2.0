@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "verification_note": "Every entry is VERIFIED against the official source URL shown. Farmo never determines or predicts a farmer's eligibility; eligibility is decided only by the scheme authority.",
+    "last_verified": "2026-09-27"
+  },
+  "schemes": [
+    {
+      "id": "pm-kisan",
+      "name": "PM-KISAN Samman Nidhi (PM-KISAN)",
+      "category": "Income Support",
+      "description": "Central Sector scheme, 100% funded by the Government of India, operational from 1 December 2018. It gives direct income support to landholding farmer families to help meet agricultural input and domestic expenses.",
+      "eligibility_summary": "Landholding farmer families whose names appear in the state/UT land records. Families are identified and verified by the State/UT government. Certain higher-income exclusion categories (institutional landholders, serving/retired government employees above the notified thresholds, income-tax payers, and notified professionals) are not eligible.",
+      "benefits": "INR 6,000 per year, paid in three equal installments of INR 2,000 each for April-July, August-November and December-March, transferred directly to the bank account through Direct Benefit Transfer.",
+      "documents": [
+        "Aadhaar number",
+        "Bank account details",
+        "Land record / khatauni details",
+        "Mobile number"
+      ],
+      "application_instructions": "Register on the official PM-KISAN portal or through the nearest Common Service Centre (CSC). The State/UT government verifies your land record and exclusion status before the benefit is released.",
+      "official_url": "https://pmkisan.gov.in/",
+      "source": "PM-KISAN Operational Guidelines and PIB press releases, Government of India",
+      "verification": "VERIFIED",
+      "last_verified": "2026-09-27"
+    },
+    {
+      "id": "pmfby",
+      "name": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
+      "category": "Crop Insurance",
+      "description": "Comprehensive crop insurance covering pre-sowing to post-harvest losses caused by natural calamities such as drought, flood, hailstorm, unseasonal rain, pests and disease.",
+      "eligibility_summary": "Farmers growing notified crops in notified areas for the applicable season. Cover is offered season by season and enrolment windows are set by the state.",
+      "benefits": "Sum insured is paid for notified crop loss. The farmer pays only a capped premium: 2% of sum insured for Kharif foodgrain and oilseed crops, 1.5% for Rabi foodgrain and oilseed crops, and 5% for commercial and horticultural crops, or the actuarial rate, whichever is less. The balance premium is subsidised, shared 50:50 between the Centre and the State (90:10 in the North Eastern Region).",
+      "documents": [
+        "Aadhaar / identity proof",
+        "Land record or tenancy record",
+        "Sowing certificate where asked",
+        "Bank account details"
+      ],
+      "application_instructions": "Apply through the official PMFBY portal, a bank branch, an insurance agent or a Common Service Centre before the notified cut-off date for the season.",
+      "official_url": "https://pmfby.gov.in/",
+      "source": "PMFBY Operational Guidelines and PIB, Government of India",
+      "verification": "VERIFIED",
+      "last_verified": "2026-09-27"
+    },
+    {
+      "id": "kcc-miss",
+      "name": "Kisan Credit Card (KCC) with Modified Interest Subvention Scheme (MISS)",
+      "category": "Credit / Loan",
+      "description": "KCC gives farmers a single composite credit facility for crop production and allied activities including animal husbandry, dairy, fisheries and bee-keeping. MISS makes the short-term loan cheaper.",
+      "eligibility_summary": "Owners, tenants, oral lessees, sharecroppers, cultivators and eligible self-help groups / joint liability groups. Each land parcel is covered through one KCC account. Final sanction rests with the lending bank.",
+      "benefits": "Short-term crop loans are lent to farmers at 7% per annum. An additional 3% prompt-repayment incentive is given to farmers who repay on time, so the effective rate is 4% per annum. As per the RBI notification for FY 2025-26 the interest subvention applies on an overall limit of INR 3 lakh; loan limits and collateral-free limits have been enhanced in recent announcements, so confirm the current limit with your bank.",
+      "documents": [
+        "Aadhaar / identity proof",
+        "Land records or proof of cultivation rights",
+        "Passport-size photographs",
+        "Bank account details"
+      ],
+      "application_instructions": "Apply at any commercial bank, regional rural bank, cooperative bank or PACS branch. Farmers can also approach a bank camp organised under the nationwide KCC saturation drive.",
+      "official_url": "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=13270&Mode=0",
+      "source": "Reserve Bank of India notification on Modified Interest Subvention Scheme for FY 2025-26, and PIB press notes",
+      "verification": "VERIFIED",
+      "last_verified": "2026-09-27"
+    },
+    {
+      "id": "soil-health-card",
+      "name": "Soil Health Card Scheme",
+      "category": "Soil / Advisory",
+      "description": "Government scheme that tests your soil and issues a Soil Health Card giving the nutrient status of the land together with recommended dosages of fertiliser, bio-fertiliser, organic manure and soil amendments.",
+      "eligibility_summary": "Soil samples are collected and tested by the State Agricultural Department for farmers in the notified area. Contact your block or village agriculture assistant to be included in a sampling cycle.",
+      "benefits": "A free soil test and a printed or digital Soil Health Card in 22 languages with nutrient status and crop-wise nutrient dosage recommendations, supporting need-based input use, lower cultivation cost and sustainable soil health.",
+      "documents": [
+        "Land record details",
+        "Aadhaar / identity proof",
+        "Farm location and contact details"
+      ],
+      "application_instructions": "Apply through the Soil Health Card portal or ask your village agriculture assistant / Krishi Vigyan Kendra to collect a soil sample from your field.",
+      "official_url": "https://soilhealth.dac.gov.in/",
+      "source": "Soil Health Card portal, Department of Agriculture and Farmers Welfare, Ministry of Agriculture and Farmers Welfare",
+      "verification": "VERIFIED",
+      "last_verified": "2026-09-27"
+    },
+    {
+      "id": "enam",
+      "name": "e-NAM (National Agriculture Market)",
+      "category": "Marketing",
+      "description": "A pan-India electronic trading portal that networks existing APMC mandis into a single national market. Implemented by the Small Farmers' Agribusiness Consortium (SFAC) under the Ministry of Agriculture and Farmers' Welfare.",
+      "eligibility_summary": "Farmers selling notified commodities at an e-NAM integrated mandi. Participation requires the mandi to be part of the e-NAM network and the trader to hold the applicable unified licence.",
+      "benefits": "Transparent auction-based price discovery with real-time demand and supply, access to buyers beyond the local mandi including other states, online bidding, and timely payment into the farmer's bank account.",
+      "documents": [
+        "Farmer registration on the e-NAM portal",
+        "Produce and quantity details",
+        "Bank account details",
+        "Identity proof"
+      ],
+      "application_instructions": "Register on the e-NAM portal, bring your produce to an e-NAM integrated mandi, and take part in the physical plus online auction. Toll free helpdesk: 1800 270 0224.",
+      "official_url": "https://www.enam.gov.in/web/",
+      "source": "e-NAM official portal, Small Farmers' Agribusiness Consortium, Ministry of Agriculture and Farmers' Welfare",
+      "verification": "VERIFIED",
+      "last_verified": "2026-09-27"
+    }
+  ]
+}

@@ -101,7 +101,12 @@ def test_chat_recommendation_query_fallback(client):
     assert response.status_code == 200
     data = response.json()
     assert data["intent"] == "recommendation"
-    assert "recommendation" in data["answer"].lower() or "salah" in data["answer"].lower()
+    # Accept the native-script Hindi label as well as the older romanised form.
+    answer_lower = data["answer"].lower()
+    assert any(
+        token in answer_lower
+        for token in ("recommendation", "salah", "सलाह", "सल्ला", "সলাহ")
+    )
 
 
 def test_chat_profit_query_fallback(client):

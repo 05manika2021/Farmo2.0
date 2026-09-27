@@ -116,10 +116,20 @@ export default function HomePage() {
       bg: '#F0F5F2',
       fg: '#001913',
     },
+    {
+      id: 'alerts',
+      icon: '🔔',
+      title: t('home.alerts'),
+      desc: t('alerts.demoNote'),
+      highlight: 'DEMO',
+      highlightLabel: t('home.alerts'),
+      href: '/alerts',
+      bg: '#FFF7E6',
+      fg: '#001913',
+    },
   ]
 
   const COMING_SOON = [
-    { icon: '🔔', label: t('home.alerts') },
     { icon: '📋', label: t('home.schemes') },
     { icon: '🚛', label: t('home.logistics') },
     { icon: '🤝', label: t('home.buyers') },

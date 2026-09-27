@@ -9,6 +9,7 @@ os.environ["GOOGLE_MAPS_API_KEY"] = ""
 os.environ["GROQ_API_KEY"] = ""
 os.environ["OPENAI_API_KEY"] = ""
 os.environ["WEATHER_API_KEY"] = ""
+os.environ["WEATHER_PROVIDER"] = "disabled"
 os.environ["STT_PROVIDER"] = "groq"
 os.environ["TTS_PROVIDER"] = "gemini"
 

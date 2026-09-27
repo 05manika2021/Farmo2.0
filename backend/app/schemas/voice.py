@@ -44,3 +44,9 @@ class VoicePipelineResponse(BaseModel):
     gemini_source: str = "fallback"
     stt_error: Optional[str] = None
     tts_error: Optional[str] = None
+    # Explicit AI failure signalling. `success` is false whenever the answer
+    # could not be generated, and `error_code` is one of the coarse, safe
+    # categories (AI_QUOTA_EXHAUSTED / AI_TIMEOUT / AI_UNAVAILABLE).
+    success: bool = True
+    error_code: Optional[str] = None
+    error_message: Optional[str] = None

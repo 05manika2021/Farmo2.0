@@ -19,3 +19,7 @@ class ChatResponse(BaseModel):
     context_used: List[str]
     data_status: str
     source: str
+    # Set only when the selected LLM provider failed; the answer itself is
+    # never blank because it falls back to verified local data.
+    error_code: Optional[str] = None
+    error_message: Optional[str] = None

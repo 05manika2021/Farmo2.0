@@ -10,7 +10,12 @@ from app.schemas.voice import (
 )
 from app.services.stt_service import stt_service, normalize_language, ALLOWED_AUDIO_TYPES, MAX_AUDIO_SIZE_MB
 from app.services.tts_service import tts_service
-from app.services.gemini_service import gemini_service
+from app.services.gemini_service import (
+    gemini_service,
+    failure_message,
+    classify_ai_error,
+    ai_unavailable_message,
+)
 
 logger = logging.getLogger("farmo.voice")
 
@@ -79,7 +84,7 @@ async def voice_pipeline(
             answer_text="",
             language=app_language,
             intent="general",
-            data_status="ERROR",
+            data_status="UNAVAILABLE",
             stt_provider="unavailable",
             tts_provider="unavailable",
             stt_error=f"Unsupported audio type: {content_type}.",
@@ -93,7 +98,7 @@ async def voice_pipeline(
             answer_text="",
             language=app_language,
             intent="general",
-            data_status="ERROR",
+            data_status="UNAVAILABLE",
             stt_provider="unavailable",
             tts_provider="unavailable",
             stt_error=f"Audio file too large ({size_mb:.1f}MB). Maximum: {MAX_AUDIO_SIZE_MB}MB.",
@@ -112,7 +117,7 @@ async def voice_pipeline(
             answer_text="",
             language=app_language,
             intent="general",
-            data_status="ERROR",
+            data_status="UNAVAILABLE",
             stt_provider=stt_result.get("provider", "unavailable"),
             tts_provider="unavailable",
             stt_error=stt_result["error"],
@@ -131,18 +136,29 @@ async def voice_pipeline(
             db=db,
         )
     except Exception as e:
-        logger.error(f"Gemini error in voice pipeline: {e}")
+        # Log only the safe classification, never the raw provider message.
+        error_code = classify_ai_error(e)
+        logger.error(
+            "Gemini error in voice pipeline [%s] (%s)", error_code, type(e).__name__
+        )
         gemini_result = {
-            "answer": "Sorry, I could not process your request right now. Please try again.",
+            "answer": failure_message(app_language),
             "language": app_language,
             "intent": "general",
             "context_used": [],
-            "data_status": "ERROR",
+            "data_status": "UNAVAILABLE",
             "source": "fallback",
+            "error_code": error_code,
+            "error_message": ai_unavailable_message(app_language),
         }
 
     answer_text = gemini_result["answer"]
     intent = gemini_result["intent"]
+    # Explicit AI-failure signal for the frontend. The answer is never blank:
+    # when Gemini cannot generate we still return verified local data.
+    error_code = gemini_result.get("error_code")
+    error_message = gemini_result.get("error_message")
+    success = error_code is None
 
     tts_result = await tts_service.synthesize(text=answer_text, language=app_language)
 
@@ -160,4 +176,7 @@ async def voice_pipeline(
         gemini_source=gemini_result.get("source", "fallback"),
         stt_error=stt_result.get("error"),
         tts_error=tts_result.get("error"),
+        success=success,
+        error_code=error_code,
+        error_message=error_message,
     )

@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "verification_note": "These answers describe what the Farmo app itself does. They are VERIFIED against the Farmo product, not third-party claims.",
+    "last_verified": "2026-09-27"
+  },
+  "faq": [
+    {
+      "id": "what-is-farmo",
+      "question": "What does Farmo do?",
+      "question_variants": ["farmo kya karta hai", "what is this app", "farmo kya hai"],
+      "answer": "Farmo helps you decide where and when to sell your crop. It shows mandi prices, compares markets by net value after transport cost, gives a sell-now or wait recommendation, and answers your questions by voice in your own language.",
+      "verification": "VERIFIED"
+    },
+    {
+      "id": "how-net-value",
+      "question": "How is my net value calculated?",
+      "question_variants": ["net value kaise", "how do you calculate profit", "kitna milega"],
+      "answer": "Net value = market price x quantity, minus the transport cost for the distance from your location to that mandi. Farmo shows both figures separately so you can check them.",
+      "verification": "VERIFIED"
+    },
+    {
+      "id": "are-prices-real",
+      "question": "Are these prices live mandi prices?",
+      "question_variants": ["are prices real", "kya bhav sahi hai", "live price"],
+      "answer": "Check the status tag on every answer. LIVE means the figure came from a live source. DEMO means it is sample market data. Farmo never labels sample data as live.",
+      "verification": "VERIFIED"
+    },
+    {
+      "id": "sell-or-wait",
+      "question": "How does the sell or wait advice work?",
+      "question_variants": ["sell or wait", "abhi bechu ya ruku", "kab bechna"],
+      "answer": "Farmo compares the net value you would get today against the same calculation at nearby markets and weighs transport cost, price trend and weather risk. The decision uses a fixed rule, so the same inputs always give the same answer.",
+      "verification": "VERIFIED"
+    },
+    {
+      "id": "why-weather-matters",
+      "question": "Why does weather affect my decision?",
+      "question_variants": ["weather kyun", "mausam ka kya", "will it rain"],
+      "answer": "Rain can delay transport, damage unharvested or unsold produce, and push prices. Farmo shows current conditions, rain probability and a short forecast so you can time your sale.",
+      "verification": "VERIFIED"
+    },
+    {
+      "id": "voice-languages",
+      "question": "Which languages can I use by voice?",
+      "question_variants": ["voice languages", "kaun si bhasha", "hindi mein bol sakta hoon"],
+      "answer": "English, Hindi, Punjabi, Gujarati, Marathi and Bengali. Your selected app language is sent with every voice request so the answer is spoken back in the same language.",
+      "verification": "VERIFIED"
+    },
+    {
+      "id": "my-data-not-there",
+      "question": "Why does it say it has no data for my question?",
+      "question_variants": ["no data", "data nahi hai", "kuch nahi mil raha"],
+      "answer": "Farmo only answers from data it has actually fetched. If a price, market or scheme is not available for your crop and location, it says so in your language instead of guessing.",
+      "verification": "VERIFIED"
+    },
+    {
+      "id": "scheme-eligibility",
+      "question": "Can Farmo tell me if I am eligible for a scheme?",
+      "question_variants": ["am I eligible", "scheme m milega", "eligibility"],
+      "answer": "No. Farmo shows what each scheme offers and where to apply, with the official link. Eligibility is decided only by the scheme authority after they verify your records.",
+      "verification": "VERIFIED"
+    }
+  ]
+}

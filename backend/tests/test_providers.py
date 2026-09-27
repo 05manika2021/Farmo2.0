@@ -413,11 +413,16 @@ def test_chat_uses_system_instruction_and_returns_answer(client):
         )
     assert resp.status_code == 200
     data = resp.json()
-    assert data["answer"] == "Onion ka bhaav aaj 2400 rupaye prati quintal hai."
+    # P8: every answer carries its data status after the answer body.
+    assert data["answer"].startswith("Onion ka bhaav aaj 2400 rupaye prati quintal hai.")
+    assert "Status:" in data["answer"]
     assert data["source"] == "gemini"
 
     kwargs = fake_client.models.generate_content.call_args.kwargs
-    assert kwargs["config"]["system_instruction"] == SYSTEM_INSTRUCTION
+    sent_system = kwargs["config"]["system_instruction"]
+    # Safety rules must still be present, and P1 adds an explicit language rule.
+    assert SYSTEM_INSTRUCTION in sent_system
+    assert "English" in sent_system
     assert kwargs["config"]["temperature"] == 0.3
     assert "Respond in English." in kwargs["contents"]
 

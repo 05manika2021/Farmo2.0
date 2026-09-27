@@ -26,4 +26,6 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
         context_used=result["context_used"],
         data_status=result["data_status"],
         source=result["source"],
+        error_code=result.get("error_code"),
+        error_message=result.get("error_message"),
     )

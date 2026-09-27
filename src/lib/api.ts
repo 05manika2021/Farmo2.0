@@ -301,6 +301,33 @@ export function getWeather(latitude: number, longitude: number) {
   );
 }
 
+// ── Alerts ────────────────────────────────────────────────────────────────────
+
+export interface AlertItem {
+  id: string;
+  type: string;
+  title: string;
+  body: string;
+  severity: string;
+  data_status: string;
+  source: string;
+}
+
+export function getAlerts(params?: {
+  language?: string;
+  crop?: string;
+  quantity?: number;
+  latitude?: number;
+  longitude?: number;
+}) {
+  return apiFetch<{
+    alerts: AlertItem[];
+    count: number;
+    language: string;
+    data_status: string;
+  }>(`/alerts${qs({ ...params })}`, { method: 'GET' });
+}
+
 // ── Voice ─────────────────────────────────────────────────────────────────────
 
 export function voiceTranscribe(data: {

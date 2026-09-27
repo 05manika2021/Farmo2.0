@@ -1,13 +1,16 @@
 import logging
 import traceback
 from fastapi import FastAPI, Request
+from fastapi.encoders import jsonable_encoder
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.core.config import settings
-from app.db.seed import init_db, seed_demo_data
+from app.db.seed import init_db, seed_demo_data, seed_ui_demo_crops
+from app.services.llm_provider import resolve_provider_name
 from app.api.routes import (
     health, auth, farmers, location, markets,
-    prices, profit, recommendations, chat, voice, weather,
+    prices, profit, recommendations, chat, voice, weather, alerts,
 )
 
 logging.basicConfig(
@@ -77,6 +80,24 @@ async def global_exception_handler(request: Request, exc: Exception):
     )
 
 
+@app.exception_handler(RequestValidationError)
+async def request_validation_handler(request: Request, exc: RequestValidationError):
+    """Return a clean 422 instead of letting FastAPI's default encoder
+    crash on raw bytes when the request body is not the expected JSON."""
+    try:
+        detail = jsonable_encoder(exc.errors())
+    except Exception:
+        detail = [
+            {
+                "type": str(err.get("type", "value_error")),
+                "msg": str(err.get("msg", "Invalid input")),
+                "loc": [str(part) for part in err.get("loc", ())],
+            }
+            for err in exc.errors()
+        ]
+    return JSONResponse(status_code=422, content={"detail": detail})
+
+
 @app.exception_handler(404)
 async def not_found_handler(request: Request, exc):
     return JSONResponse(
@@ -98,8 +119,13 @@ async def startup_event():
     logger.info("Database initialized.")
     seed_demo_data()
     logger.info("Demo data seeded (if empty).")
+    seed_ui_demo_crops()
+    logger.info("UI crop DEMO prices seeded (idempotent).")
     logger.info(f"Demo mode: {settings.DEMO_MODE}")
     logger.info(f"Gemini configured: {bool(settings.GEMINI_API_KEY)}")
+    logger.info(f"Groq configured: {bool(settings.GROQ_API_KEY)}")
+    logger.info(f"LLM provider: {resolve_provider_name()} (model: "
+                f"{settings.GROQ_MODEL if resolve_provider_name() == 'groq' else settings.GEMINI_MODEL})")
     logger.info(f"Google Maps configured: {bool(settings.GOOGLE_MAPS_API_KEY)}")
 
 
@@ -115,4 +141,5 @@ app.include_router(profit.router, prefix=f"{API_V1}/profit", tags=["Profit"])
 app.include_router(recommendations.router, prefix=f"{API_V1}/recommendations", tags=["Recommendations"])
 app.include_router(chat.router, prefix=f"{API_V1}/chat", tags=["Chat"])
 app.include_router(weather.router, prefix=f"{API_V1}/weather", tags=["Weather"])
+app.include_router(alerts.router, prefix=f"{API_V1}/alerts", tags=["Alerts"])
 app.include_router(voice.router, prefix=f"{API_V1}/voice", tags=["Voice"])

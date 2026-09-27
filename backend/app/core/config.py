@@ -42,6 +42,9 @@ class Settings(BaseSettings):
 
     WEATHER_API_KEY: Optional[str] = None
 
+    # Open-Meteo is keyless; set to "disabled" to force UNAVAILABLE (used by tests).
+    WEATHER_PROVIDER: str = "open-meteo"
+
     TRANSPORT_RATE_PER_KM: float = 15.0
     TRANSPORT_MIN_COST: float = 50.0
 
@@ -55,6 +58,11 @@ class Settings(BaseSettings):
 
     GROQ_API_KEY: Optional[str] = None
     GROQ_STT_MODEL: str = "whisper-large-v3-turbo"
+
+    # Chat LLM provider: "groq" | "gemini" | "" (auto).
+    # Auto selects Groq only when GROQ_API_KEY is configured, else Gemini.
+    LLM_PROVIDER: str = ""
+    GROQ_MODEL: str = "qwen/qwen3.8-27b"
 
 
 settings = Settings()

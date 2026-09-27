@@ -15,7 +15,7 @@ type Message = {
   text?: string
   card?: boolean
   timestamp: string
-  data_status?: 'DEMO' | 'LIVE'
+  data_status?: 'DEMO' | 'LIVE' | 'UNAVAILABLE'
 }
 
 const INITIAL: Message[] = [
@@ -78,9 +78,12 @@ export default function ChatPage() {
             from: 'farmo',
             text: res.answer,
             timestamp: 'Now',
-            data_status: res.data_status === 'LIVE' || res.data_status === 'DEMO'
-              ? res.data_status
-              : undefined,
+            data_status:
+              res.data_status === 'LIVE' ||
+              res.data_status === 'DEMO' ||
+              res.data_status === 'UNAVAILABLE'
+                ? res.data_status
+                : undefined,
           },
         ])
       } else {
@@ -140,7 +143,9 @@ export default function ChatPage() {
                     <span className={`absolute -top-2 text-[9px] font-bold px-1.5 py-0.5 rounded-full ${
                       msg.data_status === 'LIVE'
                         ? 'bg-emerald-100 text-emerald-700'
-                        : 'bg-amber-100 text-amber-700'
+                        : msg.data_status === 'UNAVAILABLE'
+                          ? 'bg-rose-100 text-rose-700'
+                          : 'bg-amber-100 text-amber-700'
                     }`}>
                       {msg.data_status}
                     </span>

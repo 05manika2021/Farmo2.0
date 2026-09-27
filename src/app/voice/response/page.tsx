@@ -20,6 +20,9 @@ interface PipelineResult {
   gemini_source?: string
   stt_error?: string
   tts_error?: string
+  success?: boolean
+  error_code?: string
+  error_message?: string
 }
 
 export default function VoiceResponsePage() {
@@ -140,7 +143,8 @@ export default function VoiceResponsePage() {
           <div className="flex items-center gap-3">
             <button
               onClick={togglePlay}
-              className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center shrink-0 active:scale-95 transition-transform"
+              disabled={!hasAudio}
+              className={`w-12 h-12 rounded-full bg-secondary flex items-center justify-center shrink-0 active:scale-95 transition-transform ${hasAudio ? '' : 'opacity-40'}`}
             >
               {playing ? (
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -164,6 +168,14 @@ export default function VoiceResponsePage() {
             </div>
           </div>
         </div>
+
+        {(result?.tts_error || !hasAudio) && (
+          <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-3 mb-4">
+            <p className="text-xs text-amber-700 font-semibold leading-relaxed">
+              {t('voice.ttsUnavailable')}
+            </p>
+          </div>
+        )}
 
         <div className="bg-card rounded-2xl border border-border p-4 mb-4">
           <div className="flex items-start gap-3 mb-3">

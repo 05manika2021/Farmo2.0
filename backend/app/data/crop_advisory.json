@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "verification_note": "Entries marked VERIFIED describe Farmo's own logic. Entries marked GENERAL GUIDANCE are widely accepted agronomy or post-harvest practice and are NOT a prescription for your field. Always consult your local agriculture extension officer or Krishi Vigyan Kendra for crop-specific decisions.",
+    "last_verified": "2026-09-27"
+  },
+  "advisories": [
+    {
+      "id": "store-or-sell",
+      "topic": "Storage vs selling",
+      "question_variants": ["should i store", "rakhun ya bechun", "storage"],
+      "when_to_use": "Farmer has harvested or is about to harvest and is deciding between storing and selling now.",
+      "guidance": "Store only if you have safe, dry storage and the price trend for your crop is stable or rising and transport cost to a better market is not eating your margin. If the price trend is falling or weather risk is high, selling sooner usually protects your net value. Farmo's sell-or-wait card weighs these three inputs for you.",
+      "verification": "GENERAL GUIDANCE"
+    },
+    {
+      "id": "rain-and-harvest",
+      "topic": "Rain before sale",
+      "question_variants": ["it will rain", "barish", "rain today"],
+      "when_to_use": "Fresh produce is waiting to be loaded or transported.",
+      "guidance": "Check rain probability before loading. Rain during transport raises handling cost and can damage produce, so move fresh produce on dry days and keep harvested produce covered.",
+      "verification": "GENERAL GUIDANCE"
+    },
+    {
+      "id": "transport-cost",
+      "topic": "Transport cost",
+      "question_variants": ["transport cost", "bhad kitna", "how far is mandi"],
+      "when_to_use": "Comparing two mandis at different distances.",
+      "guidance": "A higher price at a farther mandi is not automatically better. Compare net value after transport, not the headline price alone. Farmo subtracts transport cost automatically on the comparison screen.",
+      "verification": "VERIFIED"
+    },
+    {
+      "id": "quality-and-price",
+      "topic": "Quality grading",
+      "question_variants": ["why lower price", "quality", "daam kam kyun"],
+      "when_to_use": "The price shown for a market does not match what the buyer quoted.",
+      "guidance": "Mandi prices differ by grade, moisture, size and arrival volume. Price quotes are per quintal for a standard grade, and your actual quote can be above or below it.",
+      "verification": "GENERAL GUIDANCE"
+    },
+    {
+      "id": "multiple-markets",
+      "topic": "Comparing markets",
+      "question_variants": ["best mandi", "kaunsi mandi", "compare markets"],
+      "when_to_use": "Several mandis are within reach.",
+      "guidance": "List every mandi you can realistically reach, then compare net value after transport for each. The nearest mandi is often not the highest net value, and the highest price is often not the highest net value.",
+      "verification": "VERIFIED"
+    }
+  ]
+}
